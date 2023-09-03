@@ -1,107 +1,86 @@
-s3s 🦑
+s3s 초보자 한국어 가이드 🦑🔰🇰🇷
 =====
 
-**s3s** is a script that uploads _Splatoon 3_ battle data from the SplatNet 3 service (part of the Nintendo Switch Online app) to [stat.ink](https://stat.ink/), a site for recording, visualizing, and aggregating statistics from the *Splatoon* series of games.
+**s3s**는 SplatNet3(닌텐도 스위치 온라인 앱)의  _Splatoon 3_ 배틀 데이터를 [stat.ink](https://stat.ink/)로 업로드 해주는 스크립트입니다. 여기서 [stat.ink](https://stat.ink/)는 스플래툰 시리즈의 전적을 기록하고 통계를 보여 주는 서비스입니다. 다른 게임의 전적 서비스와는 달리, stat.ink는 홈페이지에서 자신의 전적을 직접 갱신 할 수 없습니다. 이는 닌텐도에서 배틀 데이터를 공개적으로 제공하고 있지 않기 때문인데요. 따라서 전적 서비스를 이용하기 위해서는 유저가 직접 전적을 업로드해서 갱신해주어야만 합니다. 이를 도와주는 스크립트가 **s3s**입니다.
 
-(ja) 日本語版セットアップ手順は[こちら](https://vanillasalt.net/2022/10/10/how-to-use-s3s/)、または[こちら](https://zenn.dev/hibikine/articles/1febb4eb03b604)。
+이 가이드는 프로그래밍 언어에 익숙하지 않은 한국어 사용자를 위해 작성되었습니다. 더 자세한 사용법과 설명은 [s3s 레포지토리](https://github.com/frozenpandaman/s3s)의 README.md 를 참조해주세요.
 
-Looking to track your _Splatoon 2_ gameplay? See **[splatnet2statink](https://github.com/frozenpandaman/splatnet2statink)**.
+아래 가이드에서 문제가 생겼을 때 한국어로 질문하고 싶으시다면, 이 레포지토리에 이슈를 생성해주세요! 영어가 가능하신 분이라면 직접 [원작자 s3s 레포지토리에](https://github.com/frozenpandaman/s3s) 가셔서 이슈를 만들어주셔도 됩니다.
 
-### Features
- - [x] Full automation of SplatNet token generation via user log-in
- - [x] Ability to parse & upload complete battle/job stats to stat.ink ([example profile](https://stat.ink/@frozenpandaman/spl3))
- - [x] Support for Salmon Run Next Wave and Big Run
- - [x] Support for Splatfest & Tricolor Turf War battles and Challenges
- - [x] Monitoring for new results in real-time & checking for missing/unuploaded results
- - [x] Flag to remove other players' names from results
- - [x] Support for all available game languages
- - [x] File exporting function for use with Lean's [seed checker tools](https://leanny.github.io/splat3seedchecker/)
- - [x] Modular design to support [IkaLog3](https://github.com/hasegaw/IkaLog3) and other tools
 
-### What's coming?
- - [ ] Easier setup via downloadable, pre-packaged program executables (soon!)
+## 설치 및 설정 (Windows 유저) ⚙
 
----
+### 1. 파이썬 및 Git 설치
 
-## Usage 🐙
-```
-$ python s3s.py [-M [N]] [-r] [-nsr | -osr] [--blackout]
-```
+Python 3를 다운받고 설치해 줍니다. [Python.org](https://www.python.org/downloads/)의 최신 버전을 다운 받고, "Add python.exe to PATH"(중요!)라는 옵션을 체크해 설치를 진행합니다.
 
-The `-M` flag runs the script in monitoring mode, uploading new matches as you play, checking for new results every `N` seconds; if no `N` is provided, it defaults to 300 (5 minutes).
+[Git](https://git-scm.com/download/)을 설치합니다. 설치 중에 여러가지 물어보는 옵션이 많으나 크게 신경쓰지 않고 전부 Next를 눌러도 무방합니다.
 
-The `-r` flag checks for & uploads any battles/jobs present on SplatNet 3 that haven't yet been uploaded.
 
-The `-nsr` flag makes Salmon Run jobs **not** be monitored/uploaded. Use this if you're playing Lobby modes only.
+### 2. Windows Powershell 실행
 
-The `-osr` flag, conversely, makes **only** Salmon Run jobs be monitored/uploaded. Use this if you're playing at Grizzco only.
+Windows Powershell은 Windows의 명령어 라인 인터페이스입니다. 이는 명령어를 입력하고 프로그램을 실행하는 데 사용됩니다. 
 
-The `--blackout` flag removes other players' names from uploaded scoreboard data.
+실행 방법:
 
-Arguments for advanced usage (e.g. locally exporting data to JSON files, use with with Lean's [seed checker tools](https://leanny.github.io/splat3seedchecker/)) can be viewed using `--help`.
+1. Windows 시작 메뉴를 엽니다.
+2. 검색창에 "Powershell"을 입력하고 검색합니다.
+3. 나타나는 결과 중 "Windows Powershell"을 클릭하여 실행합니다.
 
-### Tips for using s3s
+### 3. s3s 다운로드 및 초기 설정
 
-★ **On first run**, you'll want to use the `-r` flag to upload _all_ available data from SplatNet to stat.ink, i.e. up to 250 battles (50 of each type: Turf War, Anarchy, X, Challenge, and Private) and up to 50 recent Salmon Run jobs.
+1. 앞서 실행한 Powershell에, `git clone https://github.com/frozenpandaman/s3s.git`을 입력하여 s3s를 다운받습니다.
 
-The suggested usage of s3s is in monitoring mode, where you run the script as you play the game and exit it once you're done playing. The command **`python s3s.py -r -M`** first looks to ensure there's no data missing from stat.ink (uploading it if so), and then continues in monitoring mode while checking for new results every 5 minutes.
+2. 먼저 다운받은 폴더(s3s/)로 들어가야 합니다. `cd s3s/`를 입력해 s3s 폴더로 들어가 주세요!
 
-More specific use cases can be specified using other flags (and [config keys](https://github.com/frozenpandaman/s3s/wiki/config-keys)). For example, if you're solely playing Salmon Run and only want to check for new results every 15 minutes, you would use `python s3s.py -osr -M 900`. If not using monitoring mode, `python s3s.py -r` should be run at least once every 50 matches to ensure no data is lost.
+3. `python -m pip install -r requirements.txt`을 입력해 s3s가 필요로하는 파이썬 라이브러리를 설치합니다.
 
-## Setup instructions 🔰
+4. `python s3s.py -r`를 입력해 s3s를 실행합니다. 처음 실행한 s3s는 가장 먼저 stat.ink의 API 키를 요구합니다. (API 키는 stat.ink의 [프로필 설정 페이지](https://stat.ink/profile)에서 확인할 수 있습니다). locale을 설정하라는 질문에는 `ko-KR`을 입력해 주세요.
 
-1. Download and install Python 3. On Windows, grab the latest release from [Python.org](https://www.python.org/downloads/windows/) and check the option during setup to add it to your PATH. On macOS, install [Homebrew](https://brew.sh/) and run `brew install python` from Terminal. Run `python --version` to verify the installation.
+    참고: 여기서 더 진행하기 전에 "토큰 생성" 탭을 읽어주세요. [→](#토큰-생성-)
 
-2. If you're on Windows, install [Git](https://git-scm.com/download/win) (pre-installed on macOS and Linux).
+5. 이후에는 닌텐도 홈페이지의 링크와 함께, 로그인 후 "Select this account" 버튼의 링크를 붙여 넣으라는 설명이 나옵니다. 이는 `gtoken`과 `bulletToken`이라는 특수한 토큰을 생성하기 위한 절차입니다. 만약 당신이 자동 토큰 생성을 사용하고 싶지 않다면, "skip"을 입력해 주세요. 대신에 수동 생성한 토큰을 입력할 수 있습니다. ([mitmproxy instructions(영어)](https://github.com/frozenpandaman/s3s/wiki/mitmproxy-instructions)).
 
-3. Download the script from the command line (macOS: Terminal; Windows: Command Prompt/PowerShell) by running `git clone https://github.com/frozenpandaman/s3s.git`.
+![링크 복사 방법](imgs/link-copy-example.png)
 
-4. Navigate to the newly-created directory (type `cd s3s/`) and install the required Python libraries by running `pip install -r requirements.txt`. On Windows, you may have to use `python -m pip` instead.
+6. 이제 생성한 토큰 그리고 stat.ink API 키 그리고 로케일 등이 `config.txt`에 저장되었습니다! 이제 모든 준비는 끝났습니다!
 
-5. Running the script for the first time (see the "Usage" section above [→](#usage-)) will prompt you to enter your stat.ink API Token (available in [settings](https://stat.ink/profile)). If you're playing the game in a language other than English, you may enter your language code (locale) as well.
 
-NOTE: Read the "Token generation" section below before proceeding. [→](#token-generation-)
+## 사용법 🐙
 
-6. You will then be asked to navigate to a specific URL on Nintendo.com, log in, and follow simple instructions to obtain your `session_token`; this will be used to generate a `gtoken` and `bulletToken`. If you are opting against automatic token generation, enter "skip" for this step, at which point you will be asked to manually input your two tokens instead (see the [mitmproxy instructions](https://github.com/frozenpandaman/s3s/wiki/mitmproxy-instructions)).
+설치 및 설정이 완료되면, 언제든지 s3s 폴더 내에서(powrshell을 다시 켤 때마다, `cd s3s/`를 실행해주어야 한다는 사실을 잊지 마세요!) s3s를 실행할 수 있습니다.
 
-    These tokens (used to access your SplatNet battle results) along with your stat.ink API key & language will be saved into `config.txt` for you. You're now ready to upload battles!
+`python s3s.py (+원하는 옵션들)`
 
-Have any questions, problems, or suggestions? [Create an issue](https://github.com/frozenpandaman/s3s/issues) here or contact me on [Twitter](https://twitter.com/frozenpandaman). **Please do not raise issues via Discord. It is important for discussion on the internet to be public, indexable, and searchable, able to be shared freely and benefit others – not locked behind a private platform. [Here](https://v21.io/blog/how-to-find-things-online)'s a great article about this!**
+- `-M [숫자]` M 옵션은 s3s를 모니터링 모드로 실행합니다. `-M 60`이라는 옵션을 지정할 경우, 주기적으로 1분(60초)마다 배틀결과를 체크해서, 새로운 결과가 추가되었다면 이를 업로드합니다. 만약 숫자 없이 `-M`만 입력할 수도 있는데, 이때의 기본값은 5분(300초) 입니다.
 
-質問があれば、ツイッター([@frozenpandaman](https://twitter.com/frozenpandaman))で連絡してください。日本語OK。
+- `-r` r 옵션은 지금 업로드할 내용이 SplatNet3에 이미 업로드되어 있는지 체크합니다. 간단하게 말해서 중복 업로드 방지 기능입니다.
 
-### Accessing SplatNet 3 from your browser
+- `-nsr` nsr 옵션은 새먼런 결과를 업로드에서 제외하고 싶을 때 사용합니다. 오직 배틀 전적만 업로드하고 싶을 때 사용할 수 있습니다.
 
-If you wish to access SplatNet 3 from your computer rather than via the phone app, navigate to [https://api.lp1.av5ja.srv.nintendo.net/](https://api.lp1.av5ja.srv.nintendo.net/) (it should show server maintenance). Use your browser or a third-party extension to add a cookie (Chrome instructions [here](https://developer.chrome.com/docs/devtools/storage/cookies/)) named `_gtoken`. Set it to the value you obtained previously (automatically by running the script or via [mitmproxy](https://github.com/frozenpandaman/s3s/wiki/mitmproxy-instructions)) – stored as `gtoken` in `config.txt` – and refresh the page. If you only want to access SplatNet and don't have a stat.ink API key, simply enter "skip" for this step during setup.
+- `-osr` osr 옵션은 반대로 새먼런 결과만을 업로드할 때 사용할 수 있습니다.
 
-To access SplatNet 3 in a language other than English, go to `https://api.lp1.av5ja.srv.nintendo.net/?lang=xx-XX` where `xx-XX` is one of the available [language codes](https://github.com/frozenpandaman/s3s/wiki/languages).
+- `--blackout` blackout 옵션을 사용하면, 전적 데이터에서 다른사람의 이름이 익명처리됩니다.
 
-You can even enter QR codes on the web version of SplatNet 3 via the list of available ones [here](https://github.com/frozenpandaman/s3s/wiki/list-of-qr-codes)!
+ex)
+- `python s3s.py -r -nsr`  (배틀만 중복없이 업로드)
+- `python s3s.py -M 600 -r --blackout`  (익명처리해서 600초마다 한번씩 중복없이 업로드)
+- `python s3s.py -r -osr --blackout`  (익명처리해서 새먼런만 중복없이 업로드)
 
-*Splatoon 3* stage rotation information, Splatfest data, and current SplatNet gear are viewable at [splatoon3.ink](https://splatoon3.ink/).
+## 토큰 생성 🪙
 
-## Token generation 🪙
+s3s가 작동하기 위해서, SplatNet에 접근할 수 있게 해주는 `gtoken`과 `bulletToken`이 필요합니다. 이 토큰들은 스크립트를 통해 자동으로 얻을 수도 있고, 아니면 공식 닌텐도 스위치 온라인 앱을 통해 수동으로 얻을 수도 있습니다. 아래의 가이드를 먼저 읽고, 토큰 생성 방식을 신중하게 선택해 주세요.
 
-For s3s to work, [tokens](https://en.wikipedia.org/wiki/Access_token) known as `gtoken` and `bulletToken` are needed to access SplatNet. These tokens may be obtained automatically, using the script, or manually via the official Nintendo Switch Online app. Please read the following sections carefully to decide whether or not you want to use automatic token generation.
+### 자동 생성
 
-### Automatic
+자동 토큰 생성은, *공식 닌텐도 서버가 아닌 제 3의 서버와의 통신 (최소한의 정보만을 포함해 안전하게 진행됩니다)*을 포함하고 있습니다. s3s는 최대한 투명하게 이 과정을 공개하고, 보안과 프라이버시에 대해 심도있는 정보를 제공하려 노력하고 있습니다. 또한 자동 생성 과정이 조금 꺼림칙하게 느껴지신다면 수동으로 토큰을 얻을 수 있습니다.
 
-Automatic token generation involves making a *secure request to a non-Nintendo server with minimal, non-identifying information*. We aim to be 100% transparent about this and provide in-depth information on security and privacy. Users who feel uncomfortable with this may opt to manually acquire their tokens instead.
+**프라이버시 안내:** 개인을 식별할 수 있는 어떠한 정보도 [imink API (언급한 제3의 서버)](https://status.imink.app/)로 전송되지 않습니다. 유저 ID와 비밀번호는 imink API와는 동떨어진 곳에 존재하고, 당신 이외에는 그 누구도 접근할 수 없습니다. API가 반환하는 결과값 또한 당신의 계정에 대한 의미있는 정보를 담고 있지 않습니다. 또한 전송되거나 저장된 데이터를 사용하여 어떤 계정/유저가 요청을 수행했는지 식별하거나, 유저에 대한 개인 정보를 확인하거나, 계정에 대한 접근 권한을 얻을 수 없습니다. 자세한 내용은 [imink API Privacy Policy](https://github.com/JoneWang/imink/wiki/Privacy-Policy) 과 [Documentation](https://github.com/JoneWang/imink/wiki/imink-API-Documentation)을 참조해주세요.
 
-**Privacy statement:** No identifying information is ever sent to the [imink API](https://status.imink.app/). Usernames and passwords are far removed from where the API comes into play and are never readable by anyone but you, and returned values do not contain any meaningful information about your account. It is not possible to use either sent or stored data to identify which account/user performed a request, to view identifying information about a user, or to gain access to an account. See the [imink API Privacy Policy](https://github.com/JoneWang/imink/wiki/Privacy-Policy) and [Documentation](https://github.com/JoneWang/imink/wiki/imink-API-Documentation) for more information.
+대안으로 [nsotokengen](https://github.com/clovervidia/nsotokengen)나 [nxapi-znca-api](https://github.com/samuelthomas2774/nxapi-znca-api)를 사용할 수 있습니다. 이들을 사용하면 외부 통신 없이 사용자 컴퓨터에서 토큰을 생성하는 것이 가능합니다. 생성 후에는 `config.txt`를 직접 수정해 반영할 수 있습니다.
 
-Alternatively, you can use [nsotokengen](https://github.com/clovervidia/nsotokengen) or [nxapi-znca-api](https://github.com/samuelthomas2774/nxapi-znca-api) as a drop-in replacement (customizable in `config.txt`) to generate tokens locally, i.e. without calls to a third-party API.
+### 수동 생성
 
-### Manual
+자동 토큰 생성을 사용하지 않기로 결정한 사용자는 SplatNet 3를 통해 수동으로 토큰을 가져와야합니다.
 
-Users who decide against using automatic token generation may instead retrieve tokens manually via SplatNet 3.
-
-In this case, users must obtain tokens from their phone – or an emulator – by intercepting their device's web traffic and entering the tokens into s3s when prompted (or manually adding them to `config.txt` later). Follow the [mitmproxy instructions](https://github.com/frozenpandaman/s3s/wiki/mitmproxy-instructions) to obtain your tokens. To opt for manual token entry, type "skip" when prompted to enter the "Select this account" URL.
-
-## License & copyleft statement 🏴
-
-s3s is _free software_ licensed under [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html). This means that you have _freedom_ – to run, modify, copy, share, and redistribute this work as you see fit, as long as derivative works are also distributed under these same or equivalent terms.
-
-Copyright is a recent, confusing, and often unnecessary human invention. Libraries, for example, predate copyright by thousands of years, and their integral role in the "promotion of science" and "encouragement of learning" was acknowledged even before the first copyright statutes were enacted. If the first human who had the idea of a hammer claimed it as their intellectual property, we wouldn't have gotten very far as a species. Please consider sharing your work openly with the world. _(statement adapted from [here](https://tspace.library.utoronto.ca/bitstream/1807/89456/1/Katz%20Copyright%2C%20Exhaustion.pdf) and [here](https://rickey.info/about/))_
-
-While this is a free/libre and open-source project, its license does require **attribution**. **If you are using any part of s3s, splatnet2statink, `iksm.py`, etc. in your project, _please provide a link back to this repository_**. I have spent over half a decade and hundreds of hours of my personal time on these projects for the Splatoon community – so, at the least, some credit would be nice. :) Donations, via the "Sponsor" button at the top or links in the sidebar, are also greatly appreciated. Thank you, and stay fresh! –eli ＜コ:彡
+이 경우, 사용자는 자신의 폰(혹은 에뮬레이터)에서 기기의 웹 트래픽을 가로채서 토큰을 얻어야 하고, 이 토큰을 s3s에 입력해야합니다. (혹은 수동으로 `config.txt`에 추가) [mitproxy instructions(영어)](https://github.com/frozenpandaman/s3s/wiki/mitmproxy-instructions)의 가이드를 참조해주세요. 수동으로 s3s에 토큰을 입력하려면, s3s에 "Select this account" URL을 입력해야할 때 "skip"을 입력하세요.
