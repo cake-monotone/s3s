@@ -1,4 +1,4 @@
-s3s 초보자 한국어 가이드 🦑🔰🇰🇷
+s3s 초보자 한국어 가이드 (2023.09.03) 🦑🔰🇰🇷
 =====
 
 **s3s**는 SplatNet3(닌텐도 스위치 온라인 앱)의  _Splatoon 3_ 배틀 데이터를 [stat.ink](https://stat.ink/)로 업로드 해주는 스크립트입니다. 여기서 [stat.ink](https://stat.ink/)는 스플래툰 시리즈의 전적을 기록하고 통계를 보여 주는 서비스입니다. 다른 게임의 전적 서비스와는 달리, stat.ink는 홈페이지에서 자신의 전적을 직접 갱신 할 수 없습니다. 이는 닌텐도에서 배틀 데이터를 공개적으로 제공하고 있지 않기 때문인데요. 따라서 전적 서비스를 이용하기 위해서는 유저가 직접 전적을 업로드해서 갱신해주어야만 합니다. 이를 도와주는 스크립트가 **s3s**입니다.
@@ -81,7 +81,7 @@ s3s가 작동하기 위해서, SplatNet에 접근할 수 있게 해주는 `gtoke
 
 **프라이버시 안내:** 개인을 식별할 수 있는 어떠한 정보도 [imink API (언급한 제3의 서버)](https://status.imink.app/)로 전송되지 않습니다. 유저 ID와 비밀번호는 imink API와는 동떨어진 곳에 존재하고, 당신 이외에는 그 누구도 접근할 수 없습니다. API가 반환하는 결과값 또한 당신의 계정에 대한 의미있는 정보를 담고 있지 않습니다. 또한 전송되거나 저장된 데이터를 사용하여 어떤 계정/유저가 요청을 수행했는지 식별하거나, 유저에 대한 개인 정보를 확인하거나, 계정에 대한 접근 권한을 얻을 수 없습니다. 자세한 내용은 [imink API Privacy Policy](https://github.com/JoneWang/imink/wiki/Privacy-Policy) 과 [Documentation](https://github.com/JoneWang/imink/wiki/imink-API-Documentation)을 참조해주세요.
 
-대안으로 [nsotokengen](https://github.com/clovervidia/nsotokengen)나 [nxapi-znca-api](https://github.com/samuelthomas2774/nxapi-znca-api)를 사용할 수 있습니다. 이들을 사용하면 외부 통신 없이 사용자 컴퓨터에서 토큰을 생성하는 것이 가능합니다. 생성 후에는 `config.txt`를 직접 수정해 반영할 수 있습니다.
+대안으로 [nsotokengen](https://github.com/clovervidia/nsotokengen)나 [nxapi-znca-api](https://github.com/samuelthomas2774/nxapi-znca-api)를 사용할 수 있습니다. 이들을 사용하면 외부 통신 없이 사용자 컴퓨터에서 토큰을 생성하는 것이 가능합니다. 생성 후에는 `config.txt`를 직접 수정해 반영할 수 있습니다. (이 과정에서는 루팅한 안드로이드 폰 또는 안드로이드 에뮬레이터가 필요합니다)
 
 ### 수동 생성
 
