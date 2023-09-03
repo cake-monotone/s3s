@@ -12,10 +12,14 @@ s3s 초보자 한국어 가이드 🦑🔰🇰🇷
 
 ### 1. 파이썬 및 Git 설치
 
-Python 3를 다운받고 설치해 줍니다. [Python.org](https://www.python.org/downloads/)의 최신 버전을 다운 받고, "Add python.exe to PATH"(중요!)라는 옵션을 체크해 설치를 진행합니다.
+먼저 Python 3를 다운받고 설치해 줍니다. [Python.org](https://www.python.org/downloads/)의 최신 버전을 다운 받고, "Add python.exe to PATH"(중요!)라는 옵션을 체크해 설치를 진행합니다.
+
+![python-installation-1](imgs/python-install-1.png)
+![python-installation-2](imgs/python-install-2.png)
 
 [Git](https://git-scm.com/download/)을 설치합니다. 설치 중에 여러가지 물어보는 옵션이 많으나 크게 신경쓰지 않고 전부 Next를 눌러도 무방합니다.
 
+![git-installation](imgs/git-install.png)
 
 ### 2. Windows Powershell 실행
 
@@ -37,7 +41,7 @@ Windows Powershell은 Windows의 명령어 라인 인터페이스입니다. 이�
 
 4. `python s3s.py -r`를 입력해 s3s를 실행합니다. 처음 실행한 s3s는 가장 먼저 stat.ink의 API 키를 요구합니다. (API 키는 stat.ink의 [프로필 설정 페이지](https://stat.ink/profile)에서 확인할 수 있습니다). locale을 설정하라는 질문에는 `ko-KR`을 입력해 주세요.
 
-    참고: 여기서 더 진행하기 전에 "토큰 생성" 탭을 읽어주세요. [→](#토큰-생성-)
+    참고: 여기서 더 진행하기 전에 "토큰 생성" 탭을 읽어주세요. [#토큰 생성](#토큰-생성-)
 
 5. 이후에는 닌텐도 홈페이지의 링크와 함께, 로그인 후 "Select this account" 버튼의 링크를 붙여 넣으라는 설명이 나옵니다. 이는 `gtoken`과 `bulletToken`이라는 특수한 토큰을 생성하기 위한 절차입니다. 만약 당신이 자동 토큰 생성을 사용하고 싶지 않다면, "skip"을 입력해 주세요. 대신에 수동 생성한 토큰을 입력할 수 있습니다. ([mitmproxy instructions(영어)](https://github.com/frozenpandaman/s3s/wiki/mitmproxy-instructions)).
 
