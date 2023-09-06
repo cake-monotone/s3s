@@ -23,7 +23,7 @@ s3s 초보자 한국어 가이드 (2023.09.03) 🦑🔰🇰🇷
 
 ### 2. Windows Powershell 실행
 
-Windows Powershell은 Windows의 명령어 라인 인터페이스입니다. 이는 명령어를 입력하고 프로그램을 실행하는 데 사용됩니다. 
+Windows Powershell은 Windows의 명령어 라인 인터페이스입니다. 저희는 이 powershell 위에서 방금 설치한 python, git을 사용해 s3s를 실행할 예정입니다.
 
 실행 방법:
 
@@ -73,13 +73,15 @@ ex)
 
 ## 토큰 생성 🪙
 
-s3s가 작동하기 위해서, SplatNet에 접근할 수 있게 해주는 `gtoken`과 `bulletToken`이 필요합니다. 이 토큰들은 스크립트를 통해 자동으로 얻을 수도 있고, 아니면 공식 닌텐도 스위치 온라인 앱을 통해 수동으로 얻을 수도 있습니다. 아래의 가이드를 먼저 읽고, 토큰 생성 방식을 신중하게 선택해 주세요.
+(토큰 생성 챕터는 [영어 원문](https://github.com/frozenpandaman/s3s#token-generation-)을 그대로 번역하였습니다. 오역/의역이 많으니 감안하고 읽어주세요!)
+
+s3s가 작동하기 위해서는 SplatNet에 접근할 수 있게 해주는 `gtoken`과 `bulletToken`이 필요합니다. 이 토큰들은 스크립트를 통해 자동으로 얻을 수도 있고, 아니면 공식 닌텐도 스위치 온라인 앱을 통해 수동으로 얻을 수도 있습니다. 아래의 가이드를 먼저 읽고, 토큰 생성 방식을 신중하게 선택해 주세요.
 
 ### 자동 생성
 
-자동 토큰 생성은, *공식 닌텐도 서버가 아닌 제 3의 서버와의 통신 (최소한의 정보만을 포함해 안전하게 진행됩니다)*을 포함하고 있습니다. s3s는 최대한 투명하게 이 과정을 공개하고, 보안과 프라이버시에 대해 심도있는 정보를 제공하려 노력하고 있습니다. 또한 자동 생성 과정이 조금 꺼림칙하게 느껴지신다면 수동으로 토큰을 얻을 수 있습니다.
+자동으로 토큰을 생성하는 과정에서 *공식 닌텐도 서버가 아닌 제 3의 서버와의 통신 (최소한의 정보만을 포함해 안전하게 진행됩니다)* 을 합니다. s3s는 최대한 투명하게 이 과정을 공개하고, 보안과 프라이버시에 대해 심도있는 정보를 제공하려 노력하고 있습니다. 또한 자동 생성 과정이 조금 꺼림칙하게 느껴지신다면 수동으로 토큰을 얻을 수 있습니다.
 
-**프라이버시 안내:** 개인을 식별할 수 있는 어떠한 정보도 [imink API (언급한 제3의 서버)](https://status.imink.app/)로 전송되지 않습니다. 유저 ID와 비밀번호는 imink API와는 동떨어진 곳에 존재하고, 당신 이외에는 그 누구도 접근할 수 없습니다. API가 반환하는 결과값 또한 당신의 계정에 대한 의미있는 정보를 담고 있지 않습니다. 또한 전송되거나 저장된 데이터를 사용하여 어떤 계정/유저가 요청을 수행했는지 식별하거나, 유저에 대한 개인 정보를 확인하거나, 계정에 대한 접근 권한을 얻을 수 없습니다. 자세한 내용은 [imink API Privacy Policy](https://github.com/JoneWang/imink/wiki/Privacy-Policy) 과 [Documentation](https://github.com/JoneWang/imink/wiki/imink-API-Documentation)을 참조해주세요.
+**프라이버시 안내:** 개인을 식별할 수 있는 어떠한 정보도 [imink API (언급한 제3의 서버)](https://status.imink.app/)로 전송되지 않습니다. 유저 ID와 비밀번호는 imink API와는 동떨어진 곳에 존재하고, 당신 이외에는 그 누구도 접근할 수 없습니다. API가 반환하는 결과값 또한 당신의 계정에 대한 의미있는 정보를 담고 있지 않습니다. 또한 전송되거나 저장된 데이터를 사용하여 어떤 계정/유저가 요청을 수행했는지 식별하거나, 유저에 대한 개인 정보를 확인하거나, 계정에 대한 접근 권한을 얻을 수 없습니다. 자세한 내용은 [imink API Privacy Policy](https://github.com/JoneWang/imink/wiki/Privacy-Policy)와 [Documentation](https://github.com/JoneWang/imink/wiki/imink-API-Documentation)을 참조해주세요.
 
 대안으로 [nsotokengen](https://github.com/clovervidia/nsotokengen)나 [nxapi-znca-api](https://github.com/samuelthomas2774/nxapi-znca-api)를 사용할 수 있습니다. 이들을 사용하면 외부 통신 없이 사용자 컴퓨터에서 토큰을 생성하는 것이 가능합니다. 생성 후에는 `config.txt`를 직접 수정해 반영할 수 있습니다. (이 과정에서는 루팅한 안드로이드 폰 또는 안드로이드 에뮬레이터가 필요합니다)
 
